@@ -63,6 +63,22 @@ namespace SourceCodeGeneration.Tests
 		{
 			return _sampleclass.Method10(input, out result);
 		}
+		public virtual void Method11<TValue>(params TValue[] values) 		
+		{
+			_sampleclass.Method11<TValue>(values);
+		}
+		public override int GetHashCode() 		
+		{
+			return _sampleclass.GetHashCode();
+		}
+		public override bool Equals(System.Object obj) 		
+		{
+			return _sampleclass.Equals(obj);
+		}
+		public new System.Type GetType() 		
+		{
+			return _sampleclass.GetType();
+		}
 	}
 	public partial interface ISampleClass		
 	{
@@ -95,6 +111,8 @@ namespace SourceCodeGeneration.Tests
       string Method9(dynamic input);
 
       bool Method10(string input, out int result);
+
+      void Method11<TValue>(params TValue[] values);
 	}
 }
 

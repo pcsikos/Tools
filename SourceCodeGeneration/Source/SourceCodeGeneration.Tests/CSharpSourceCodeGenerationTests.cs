@@ -1,26 +1,30 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SourceCodeGeneration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
-using SourceCodeGeneration;
+using System.Linq;
 
 namespace SourceCodeGeneration.Tests
 {
     [TestClass()]
     public class CSharpSourceCodeGenerationTests
     {
-        [TestMethod()]
-        public void GetParameterType_DynamicParameterGiven_dddd()
+        [TestMethod]
+        public void GetParameterType_DynamicParameterGiven_ShouldReturnDynamicKeyword()
         {
             var method = typeof(SampleClass).GetMethod("Method9");
             var parameter = method.GetParameters()[0];
 
             var result = CSharpSourceCodeGeneration.GetParameterType(parameter);
             result.Should().Be("dynamic input");
+        }
+
+        [TestMethod]
+        public void GetParameterType_GenericParamsParameterGiven_ShouldReturnParamsKeyword()
+        {
+            var method = typeof(SampleClass).GetMethod("Method11");
+            var parameter = method.GetParameters()[0];
+
+            var result = CSharpSourceCodeGeneration.GetParameterType(parameter);
+            result.Should().Be("params TValue[] values");
         }
 
         [TestMethod()]

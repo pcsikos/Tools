@@ -18,11 +18,13 @@ namespace SourceCodeGeneration
             {
                 return GetSafeTypeName(type.GetElementType());
             }
-
+            if (type.IsArray)
+            {
+                return GetSafeTypeName(type.GetElementType()) + "[]";
+            }
             if (!type.IsGenericType)
             {
                 return (type.IsGenericParameter) ? type.Name : GetTypePrimitiveName(type);
-                
             }
 
             var generic = type.GetGenericTypeDefinition();
@@ -52,11 +54,11 @@ namespace SourceCodeGeneration
                 var constraints = cons.Where(x => x != typeof(ValueType)).Select(x => GetSafeTypeName(x)).ToList();
                 if ((arg.GenericParameterAttributes & GenericParameterAttributes.ReferenceTypeConstraint) == GenericParameterAttributes.ReferenceTypeConstraint)
                 {
-                    constraints.Add("class");
+                    constraints.Insert(0, "class");
                 }
                 else if ((arg.GenericParameterAttributes & GenericParameterAttributes.NotNullableValueTypeConstraint) == GenericParameterAttributes.NotNullableValueTypeConstraint)
                 {
-                    constraints.Add("struct");
+                    constraints.Insert(0, "struct");
                 }
                 if (constraints.Count != 0)
                 {

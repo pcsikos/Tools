@@ -65,5 +65,24 @@ namespace SourceCodeGeneration.Tests
         {
             throw new NotImplementedException();
         }
+
+        public void Method11<TValue>(params TValue[] values)
+        {
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public new Type GetType()
+        {
+            return base.GetType();
+        }
     }
 }

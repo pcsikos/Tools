@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Reflection" #>
 <#@ output extension=".cs" #>
-<#@ Assembly Name="$(SolutionDir)SourceCodeGeneration\bin\Debug\SourceCodeGeneration.dll" #>
+<#@ Assembly Name="$(SolutionDir)SourceCodeGeneration.Tests\bin\Debug\SourceCodeGeneration.dll" #>
 <#@ Assembly Name="$(TargetPath)" #>
 <#@ import namespace="SourceCodeGeneration" #>
 <#@ import namespace="SourceCodeGeneration.Tests" #>
@@ -48,9 +48,18 @@ namespace <#= namespace2#>
 			var genericContraints = CSharpSourceCodeGeneration.GetTypeParametersConstrants(sourceMethod);
 			var methodArguments = CSharpSourceCodeGeneration.GetInvokingMethodArguments(sourceMethod);
 			var methodSignature = returnType + " " + sourceMethod.Name + typeParameters + "(" + methodParamters + ")";
-			methods.Add(new GeneratedMethod { Signature = methodSignature, Constraints = genericContraints });
+			var modifier = GetMethodModifier(sourceMethod);
+			if (modifier == null)
+			{
+				methods.Add(new GeneratedMethod { Signature = methodSignature, Constraints = genericContraints });
+				modifier = createMethodsAsVirtual ? "virtual " : "";
+			}
+			else
+			{
+				modifier += " ";
+			}
 #>
-		public <#= createMethodsAsVirtual ? "virtual " : "" #><#=methodSignature#> <#
+		public <#= modifier #><#=methodSignature#> <#
 			RenderGenericConstraints(genericContraints); #>
 		
 		{
@@ -79,6 +88,18 @@ namespace <#= namespace2#>
 }
 
 <#+
+	string GetMethodModifier(MethodInfo method)
+	{
+		var methods = typeof(object).GetMethods().Where(x => method.Name == x.Name
+			&& method.GetParameters().Select(p => p.ParameterType.FullName + p.Name).SequenceEqual(x.GetParameters().Select(p => p.ParameterType.FullName + p.Name)));
+		var baseMethod = methods.FirstOrDefault();
+		if (baseMethod == null)
+		{
+			return null;
+		}
+		return baseMethod.IsVirtual ? "override" : "new";
+	}
+
 	bool RenderGenericConstraints(IEnumerable<string> genericContraints)
 	{
 		if (genericContraints.Any())
