@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
 using System.Linq;
+using System;
 
 namespace SourceCodeGeneration.Tests
 {
@@ -37,6 +38,36 @@ namespace SourceCodeGeneration.Tests
         public void GetTypeParametersTest()
         {
             Assert.Fail();
+        }
+
+        [TestMethod]
+        public void GetSafeTypeName_ClassGiven_ShouldReturnClassName()
+        {
+            var type = typeof(SampleClass);
+
+            var result = CSharpSourceCodeGeneration.GetSafeTypeName(type);
+
+            result.Should().Be(type.Name);
+        }
+
+        [TestMethod]
+        public void GetSafeTypeName_ArrayGiven_ShouldReturnArrayType()
+        {
+            var type = typeof(SampleClass[]);
+
+            var result = CSharpSourceCodeGeneration.GetSafeTypeName(type);
+
+            result.Should().Be("SampleClass[]");
+        }
+
+        [TestMethod]
+        public void GetSafeTypeName_GenericGiven_ShouldReturnCorrespondingGenericExpression()
+        {
+            var type = typeof(Action<SampleStruct>);
+
+            var result = CSharpSourceCodeGeneration.GetSafeTypeName(type);
+
+            result.Should().Be("Action<SampleStruct>");
         }
 
         [TestMethod()]

@@ -9,19 +9,20 @@
 <#@ Assembly Name="$(TargetPath)" #>
 <#@ import namespace="SourceCodeGeneration" #>
 <#@ import namespace="SourceCodeGeneration.Tests" #>
-
 <#
-	var wrappedType = typeof(SampleClass);
-	var className = wrappedType.Name + "Wrapper";
-	var namespace2 = wrappedType.Namespace;
-	bool createMethodsAsVirtual = true;
-	bool createInterface = true;
-	var interfaceName = "I" + wrappedType.Name;
+	var wrappedType = typeof(SampleClass);					//<<<<<======= put here your class, dont forget to import the right
+	var className = wrappedType.Name + "Wrapper";			//<<<<<======= the name of the resulting wrapper class
+	var namespace2 = wrappedType.Namespace;					//<<<<<======= namespace of the wrapper class
+	bool createMethodsAsVirtual = true;						//<<<<<======= when true all methods will be marked as virtual
+	bool createInterface = true;							//<<<<<======= when true an interface will be generated
+	var interfaceName = "I" + wrappedType.Name;				//<<<<<======= name of the resulting interface
 
 	var variableNameName = wrappedType.Name.ToLower();
 	var fieldName = "_" + variableNameName;
 #>
 using <#= wrappedType.Namespace #>;
+using System;
+using System.Collections.Generic;
 
 namespace <#= namespace2#>
 {

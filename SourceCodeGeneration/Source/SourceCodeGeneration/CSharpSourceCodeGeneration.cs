@@ -29,7 +29,7 @@ namespace SourceCodeGeneration
 
             var generic = type.GetGenericTypeDefinition();
             var sb = new StringBuilder();
-            sb.Append(generic.FullName.Substring(0, generic.FullName.IndexOf('`')));
+            sb.Append(generic.Name.Substring(0, generic.Name.IndexOf('`')));
             sb.Append('<');
 
             int i = 0;
@@ -125,7 +125,7 @@ namespace SourceCodeGeneration
                 var type = new CodeTypeReference(t);
                 return codeProvider.GetTypeOutput(type);
             }
-            return t.FullName;
+            return t.Name;
         }
     }
 }

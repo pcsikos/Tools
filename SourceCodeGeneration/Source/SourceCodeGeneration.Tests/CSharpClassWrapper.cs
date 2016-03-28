@@ -1,5 +1,6 @@
-﻿
-using SourceCodeGeneration.Tests;
+﻿using SourceCodeGeneration.Tests;
+using System;
+using System.Collections.Generic;
 
 namespace SourceCodeGeneration.Tests
 {
@@ -27,7 +28,7 @@ namespace SourceCodeGeneration.Tests
 			_sampleclass.Method2<TValue>();
 		}
 		public virtual void Method3<TValue>() 
-            where TValue: System.IComparable		
+            where TValue: IComparable		
 		{
 			_sampleclass.Method3<TValue>();
 		}
@@ -37,21 +38,21 @@ namespace SourceCodeGeneration.Tests
 		{
 			_sampleclass.Method4<TValue, TResult>();
 		}
-		public virtual void Method5<TValue>(System.Func<TValue> func) 
-            where TValue: System.IComparable		
+		public virtual void Method5<TValue>(Func<TValue> func) 
+            where TValue: IComparable		
 		{
 			_sampleclass.Method5<TValue>(func);
 		}
-		public virtual System.Collections.Generic.IEnumerable<TValue> Method6<TValue>(System.Collections.Generic.IEnumerable<TValue> func) 
-            where TValue: System.IComparable		
+		public virtual IEnumerable<TValue> Method6<TValue>(IEnumerable<TValue> func) 
+            where TValue: IComparable		
 		{
 			return _sampleclass.Method6<TValue>(func);
 		}
-		public virtual void Method7(string str, params System.Type[] types) 		
+		public virtual void Method7(string str, params Type[] types) 		
 		{
 			_sampleclass.Method7(str, types);
 		}
-		public virtual long Method8(ref System.Type[] types) 		
+		public virtual long Method8(ref Type[] types) 		
 		{
 			return _sampleclass.Method8(ref types);
 		}
@@ -71,11 +72,11 @@ namespace SourceCodeGeneration.Tests
 		{
 			return _sampleclass.GetHashCode();
 		}
-		public override bool Equals(System.Object obj) 		
+		public override bool Equals(Object obj) 		
 		{
 			return _sampleclass.Equals(obj);
 		}
-		public new System.Type GetType() 		
+		public new Type GetType() 		
 		{
 			return _sampleclass.GetType();
 		}
@@ -92,21 +93,21 @@ namespace SourceCodeGeneration.Tests
             where TValue: struct;
 
       void Method3<TValue>()
-            where TValue: System.IComparable;
+            where TValue: IComparable;
 
       void Method4<TValue, TResult>()
             where TValue: class
             where TResult: TValue;
 
-      void Method5<TValue>(System.Func<TValue> func)
-            where TValue: System.IComparable;
+      void Method5<TValue>(Func<TValue> func)
+            where TValue: IComparable;
 
-      System.Collections.Generic.IEnumerable<TValue> Method6<TValue>(System.Collections.Generic.IEnumerable<TValue> func)
-            where TValue: System.IComparable;
+      IEnumerable<TValue> Method6<TValue>(IEnumerable<TValue> func)
+            where TValue: IComparable;
 
-      void Method7(string str, params System.Type[] types);
+      void Method7(string str, params Type[] types);
 
-      long Method8(ref System.Type[] types);
+      long Method8(ref Type[] types);
 
       string Method9(dynamic input);
 
