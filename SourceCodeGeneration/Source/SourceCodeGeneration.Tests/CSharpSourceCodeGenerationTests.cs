@@ -2,6 +2,7 @@
 using FluentAssertions;
 using System.Linq;
 using System;
+using SourceCodeGeneration.Tests.DifferentNamespace;
 
 namespace SourceCodeGeneration.Tests
 {
@@ -68,6 +69,16 @@ namespace SourceCodeGeneration.Tests
             var result = CSharpSourceCodeGeneration.GetSafeTypeName(type);
 
             result.Should().Be("Action<SampleStruct>");
+        }
+
+        [TestMethod]
+        public void GetSafeTypeName_BuiltinTypeGiven_ShouldReturnShortenRepresentation()
+        {
+            var type = typeof(int);
+
+            var result = CSharpSourceCodeGeneration.GetSafeTypeName(type);
+
+            result.Should().Be("int");
         }
 
         [TestMethod()]

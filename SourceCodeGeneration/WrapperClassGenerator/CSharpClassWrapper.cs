@@ -1,9 +1,11 @@
 ﻿
 using WrapperClassGenerator;
+using System;
+using System.Collections.Generic;
 
 namespace WrapperClassGenerator
 {
-	public partial class SampleClassWrapper : ISampleClass
+	partial class SampleClassWrapper : ISampleClass
 	{
 		private readonly SampleClass _sampleclass;
 
@@ -11,7 +13,6 @@ namespace WrapperClassGenerator
 		{
 			_sampleclass = sampleclass;
 		}
-
 		public virtual void Method0<TValue>() 		
 		{
 			_sampleclass.Method0<TValue>();
@@ -27,7 +28,7 @@ namespace WrapperClassGenerator
 			_sampleclass.Method2<TValue>();
 		}
 		public virtual void Method3<TValue>() 
-            where TValue: System.IComparable		
+            where TValue: IComparable		
 		{
 			_sampleclass.Method3<TValue>();
 		}
@@ -37,21 +38,21 @@ namespace WrapperClassGenerator
 		{
 			_sampleclass.Method4<TValue, TResult>();
 		}
-		public virtual void Method5<TValue>(System.Func<TValue> func) 
-            where TValue: System.IComparable		
+		public virtual void Method5<TValue>(Func<TValue> func) 
+            where TValue: IComparable		
 		{
 			_sampleclass.Method5<TValue>(func);
 		}
-		public virtual System.Collections.Generic.IEnumerable<TValue> Method6<TValue>(System.Collections.Generic.IEnumerable<TValue> func) 
-            where TValue: System.IComparable		
+		public virtual IEnumerable<TValue> Method6<TValue>(IEnumerable<TValue> func) 
+            where TValue: IComparable		
 		{
 			return _sampleclass.Method6<TValue>(func);
 		}
-		public virtual void Method7(string str, params System.Type[] types) 		
+		public virtual void Method7(string str, params Type[] types) 		
 		{
 			_sampleclass.Method7(str, types);
 		}
-		public virtual long Method8(ref System.Type[] types) 		
+		public virtual long Method8(ref Type[] types) 		
 		{
 			return _sampleclass.Method8(ref types);
 		}
@@ -59,9 +60,13 @@ namespace WrapperClassGenerator
 		{
 			return _sampleclass.Method9(input);
 		}
-		public virtual bool Method10(string input, out int result) 		
+		public virtual bool Method10(int input, out int result) 		
 		{
 			return _sampleclass.Method10(input, out result);
+		}
+		public virtual bool Method11(Action<CustomPoint> invoker) 		
+		{
+			return _sampleclass.Method11(invoker);
 		}
 	}
 	public partial interface ISampleClass		
@@ -76,25 +81,27 @@ namespace WrapperClassGenerator
             where TValue: struct;
 
       void Method3<TValue>()
-            where TValue: System.IComparable;
+            where TValue: IComparable;
 
       void Method4<TValue, TResult>()
             where TValue: class
             where TResult: TValue;
 
-      void Method5<TValue>(System.Func<TValue> func)
-            where TValue: System.IComparable;
+      void Method5<TValue>(Func<TValue> func)
+            where TValue: IComparable;
 
-      System.Collections.Generic.IEnumerable<TValue> Method6<TValue>(System.Collections.Generic.IEnumerable<TValue> func)
-            where TValue: System.IComparable;
+      IEnumerable<TValue> Method6<TValue>(IEnumerable<TValue> func)
+            where TValue: IComparable;
 
-      void Method7(string str, params System.Type[] types);
+      void Method7(string str, params Type[] types);
 
-      long Method8(ref System.Type[] types);
+      long Method8(ref Type[] types);
 
       string Method9(dynamic input);
 
-      bool Method10(string input, out int result);
+      bool Method10(int input, out int result);
+
+      bool Method11(Action<CustomPoint> invoker);
 	}
 }
 
