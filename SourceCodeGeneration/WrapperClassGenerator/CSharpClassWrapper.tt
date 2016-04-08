@@ -17,11 +17,14 @@
 	bool createMethodsAsVirtual = true;
 	bool createInterface = true;
 	var interfaceName = "I" + wrappedType.Name;
+	var excludedMethods = new [] { "Method0" };
 
 	var variableNameName = wrappedType.Name.ToLower();
 	var fieldName = "_" + variableNameName;
 #>
 using <#= wrappedType.Namespace #>;
+using System;
+using System.Collections.Generic;
 
 namespace <#= namespace2#>
 {
@@ -38,6 +41,7 @@ namespace <#= namespace2#>
 		var methods = new List<GeneratedMethod>();
 		foreach (var sourceMethod in wrappedType.GetMethods(BindingFlags.Public | BindingFlags.Instance)
                 .Where(x => !x.IsSpecialName)
+				.Where(x => !excludedMethods.Contains(x.Name))
                 .Where(x => x.DeclaringType != typeof(object)))
         {
 			var hasReturnType = sourceMethod.ReturnType != typeof(void);
