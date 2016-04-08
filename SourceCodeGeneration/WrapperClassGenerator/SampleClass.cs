@@ -8,6 +8,7 @@ namespace WrapperClassGenerator
 {
     public class SampleClass
     {
+        
         public void Method0<TValue>()
         {
         }
@@ -61,7 +62,12 @@ namespace WrapperClassGenerator
             throw new NotImplementedException();
         }
 
-        public bool Method10(string input, out int result)
+        public bool Method10(int input, out int result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Method11(Action<CustomPoint> invoker)
         {
             throw new NotImplementedException();
         }

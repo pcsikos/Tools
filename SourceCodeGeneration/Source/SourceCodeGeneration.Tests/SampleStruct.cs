@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SourceCodeGeneration.Tests
+namespace SourceCodeGeneration.Tests.DifferentNamespace
 {
-    public class SampleStruct
+    public struct SampleStruct
     {
     }
 }

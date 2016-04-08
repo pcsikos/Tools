@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WrapperClassGenerator
 {
-	public partial class SampleClassWrapper : ISampleClass
+	partial class SampleClassWrapper : ISampleClass
 	{
 		private readonly SampleClass _sampleclass;
 
@@ -13,7 +13,6 @@ namespace WrapperClassGenerator
 		{
 			_sampleclass = sampleclass;
 		}
-
 		public virtual void Method1<TValue>() 
             where TValue: class		
 		{
@@ -57,9 +56,13 @@ namespace WrapperClassGenerator
 		{
 			return _sampleclass.Method9(input);
 		}
-		public virtual bool Method10(string input, out int result) 		
+		public virtual bool Method10(int input, out int result) 		
 		{
 			return _sampleclass.Method10(input, out result);
+		}
+		public virtual bool Method11(Action<CustomPoint> invoker) 		
+		{
+			return _sampleclass.Method11(invoker);
 		}
 	}
 	public partial interface ISampleClass		
@@ -90,7 +93,9 @@ namespace WrapperClassGenerator
 
       string Method9(dynamic input);
 
-      bool Method10(string input, out int result);
+      bool Method10(int input, out int result);
+
+      bool Method11(Action<CustomPoint> invoker);
 	}
 }
 

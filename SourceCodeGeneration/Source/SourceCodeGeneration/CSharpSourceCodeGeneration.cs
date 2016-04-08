@@ -120,7 +120,7 @@ namespace SourceCodeGeneration
 
         public static string GetTypePrimitiveName(Type t)
         {
-            if ((t.IsValueType || t == typeof(string)) && !t.IsEnum)
+            if (t.IsPrimitive ||  (t == typeof(string)) && !t.IsEnum)
             {
                 var type = new CodeTypeReference(t);
                 return codeProvider.GetTypeOutput(type);
